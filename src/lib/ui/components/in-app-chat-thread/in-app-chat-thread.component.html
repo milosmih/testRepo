@@ -1,0 +1,30 @@
+<div class="ns-cursor-pointer ns-d-flex ns-py-3 ns-px-5">
+  <nursa-avatar class="ns-mr-4"
+    [avatarUrl]="thread.photoUrl">
+  </nursa-avatar>
+  <div class="ns-d-flex ns-w-100-pc ns-bb-1 ns-b-shade-400">
+    <div class="ns-flex-grow-1">
+      <!-- CHAT HEADING -->
+      <div class="ns-d-flex ns-justify-content-between ns-align-items-center">
+        <span class="ns-heading-xs">{{thread.title}}</span>
+      </div>
+      <div *ngIf="thread?.lastMessage" class="ns-mb-3">
+        <span class="ns-text-md ns-color-shade-500">
+          <!-- MEDIA MESSAGE -->
+          <ng-container *ngIf="thread?.lastMessage?.media; else textMessageBlock">
+            Attachment message
+          </ng-container>
+          <!-- TEXT MESSAGE -->
+          <ng-template #textMessageBlock>
+            {{thread?.lastMessage?.body}}
+          </ng-template>
+        </span>
+      </div>
+    </div>
+    <div class="ns-d-flex ns-flex-col ns-justify-content-between">
+      <span class="ns-text-sm ns-color-shade-500">{{thread?.lastMessage?.date_created | currentTimeOrDate}}</span>
+      <ion-icon class="ns-ml-auto ns-mb-3 ns-bg-secondary-900 ns-color-secondary-900-i ns-w-3 ns-h-3 ns-b-radius-100"
+        name="ellipse-outline"></ion-icon>
+    </div>
+  </div>
+</div>

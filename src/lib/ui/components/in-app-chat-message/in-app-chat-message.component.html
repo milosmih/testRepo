@@ -1,0 +1,27 @@
+<div [class.ns-justify-content-end]="message?.isSent" class="ns-d-flex ns-mt-4">
+  <nursa-avatar *ngIf="!message?.isSent" class="ns-mr-4 ns-mt-6"
+    [avatarUrl]="author?.photoURL">
+  </nursa-avatar>
+  <div>
+    <!-- MESSAGE RECEIVER NAME -->
+    <div *ngIf="!message?.isSent" class="ns-text-sm ns-color-shade-500 ns-mb-4">
+      {{author?.firstName}} {{author?.lastName}}
+    </div>
+    <div [ngClass]="message?.isSent ? 'sent' : 'received'" class="ns-p-4 ns-b-radius-5 w-fit-content">
+      <!-- MEDIA MESSAGE -->
+      <ng-container *ngIf="message?.media?.length; else textMessageBodyBlock">
+        <div *ngFor="let media of message?.media">
+          {{media.filename}}
+        </div>
+      </ng-container>
+      <!-- TEXT MESSAGE -->
+      <ng-template #textMessageBodyBlock>
+        {{message?.body}}
+      </ng-template>
+      <!-- message time -->
+      <div [class.text-align-end]="message?.isSent" class="ns-text-sm ns-color-shade-600 ns-mt-4">
+        {{message?.lastUpdateTime | date:'HH:mm'}}
+      </div>
+    </div>
+  </div>
+</div>

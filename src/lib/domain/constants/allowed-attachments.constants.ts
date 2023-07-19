@@ -1,0 +1,1 @@
+export const AllowedAttachments: string[] = ['application/pdf', 'image/jpeg', 'image/png', 'image/gif', 'image/bmp', 'image/webp'];

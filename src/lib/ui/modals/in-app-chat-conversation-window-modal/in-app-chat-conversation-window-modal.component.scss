@@ -1,0 +1,13 @@
+:host {
+  height: 95%;
+
+  ::ng-deep .mdc-notched-outline__leading,
+  ::ng-deep .mdc-notched-outline__notch,
+  ::ng-deep .mdc-notched-outline__trailing {
+    border: none;
+  }
+
+  .mb-negative-24 {
+    margin-bottom: -24px;
+  }
+}

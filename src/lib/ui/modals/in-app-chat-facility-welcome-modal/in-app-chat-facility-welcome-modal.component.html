@@ -1,0 +1,33 @@
+<ion-header>
+  <nursa-navbar [headerText]="facilityName" [showMenu]="false" [showBackArrow]="true">
+  </nursa-navbar>
+</ion-header>
+<ion-content>
+  <div class="ns-max-w-md-32 ns-mx-auto ns-p-3 ns-h-100-pc ns-d-flex ns-flex-col">
+    <!-- WELCOME TEXT -->
+    <ion-row>
+      <div class="ns-text-md ns-color-shade-700 ns-mt-5 ns-mb-6 ns-px-20-pc">
+        Hey! Want to learn more about this facility? Visit their website here!
+      </div>
+    </ion-row>
+    <!-- WELCOME CARD -->
+    <ion-row>
+      <ion-card class="ns-w-100-pc ns-my-4">
+        <ion-card-content class="ns-px-0">
+          <div class="ns-d-flex ns-align-items-center ns-bb-1 ns-b-shade-200 ns-pb-5 ns-mb-5 ns-px-5">
+            <nursa-avatar [avatarUrl]="scheduler?.photoURL" class="ns-mr-5">
+            </nursa-avatar>
+            <div>
+              <div class="ns-text-lg ns-color-shade-900">{{scheduler?.firstName}} {{scheduler?.lastName}}</div>
+              <div class="ns-text-sm ns-color-shade-600">Scheduler</div>
+            </div>
+          </div>
+
+          <div class="ns-text-sm ns-color-primary-900 ns-d-flex ns-justify-content-center">
+            <span (click)="onClickOpenNewMessageThread()" class="ns-cursor-pointer">Message About This Job</span>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </ion-row>
+  </div>
+</ion-content>

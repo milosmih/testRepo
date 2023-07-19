@@ -1,0 +1,44 @@
+<ng-container *ngIf=" {
+    groupedMessages: groupedMessages$ | async,
+    authors: authors$ | async
+  } as observables">
+  <ion-header>
+    <nursa-navbar [headerText]="'Facility name'" [showMenu]="false" [showBackArrow]="true">
+    </nursa-navbar>
+  </ion-header>
+  <ion-content>
+    <div class="ns-max-w-md-32 ns-mx-auto ns-h-100-pc ns-d-flex ns-flex-col">
+      <!-- MESSAGES -->
+      <div #messagesContainerRef class="ns-flex-grow-1 ns-p-5 ns-overflow-y-auto ns-bg-shade-100 ns-bb-1 ns-b-shade-200">
+        <ng-container *ngFor="let messages of observables?.groupedMessages | keyvalue">
+          <!-- grouped messages date -->
+          <div class="ns-d-flex ns-justify-content-center ns-p-4 ns-text-sm ns-color-shade-500">
+            {{messages.key | date:'MM/dd/yyyy'}}
+          </div>
+          <!-- grouped messages text -->
+          <ng-container *ngFor="let message of messages.value">
+            <app-in-app-chat-message [message]="message"
+              [author]="message.authorId | messageAuthor:observables?.authors">
+            </app-in-app-chat-message>
+          </ng-container>
+        </ng-container>
+      </div>
+      <!-- TYPING AREA -->
+      <div>
+        <form [formGroup]="form" class="form mb-negative-24">
+          <nursa-textarea-input-field formCtrlname="message" [parentForm]="form" [inputLabel]="''">
+          </nursa-textarea-input-field>
+        </form>
+        <div class="ns-d-flex ns-justify-content-between ns-align-items-end ns-px-4 ns-pb-3">
+          <mat-icon (click)="onClickSendNewAttachment()" class="ns-btn-icon ns-icon-color-primary-900 ns-cursor-pointer">attachment</mat-icon>
+          <button [disabled]="!form.controls?.message?.value?.trim()?.length"
+            class="ns-btn ns-btn-round ns-btn-primary-flat"
+            (click)="onClickSendNewTextMessage()">
+            <mat-icon class="ns-btn-icon">send</mat-icon>
+          </button>       
+        </div>  
+      </div>
+    </div>
+    <input #fileInputRef accept=".pdf, image/*" (change)="onFileSelected($event)" type="file" style="display: none">
+  </ion-content>
+</ng-container>  

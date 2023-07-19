@@ -1,0 +1,32 @@
+<ion-header>
+  <nursa-navbar [headerText]="'Migration actions'">
+  </nursa-navbar>
+</ion-header>
+<ion-content>
+  <div class="ns-max-w-md-32 ns-mx-auto ns-mt-5">
+    <div>
+      <button class="ns-btn ns-btn-sm ns-btn-primary-flat ns-w-20" (click)="getChatThreadsDataAnalysis()">
+        Get chat threads data analysis
+      </button>
+      <button class="ns-btn ns-btn-sm ns-btn-primary-flat ns-my-5 ns-w-20" (click)="exportChatThreads()">
+        Export all chat threads on the current environment
+      </button>
+      <button class="ns-btn ns-btn-sm ns-btn-primary-flat ns-my-5 ns-w-20" (click)="exportChatThreadsAttributes()">
+        Export chat threads attributes
+      </button>
+      <button class="ns-btn ns-btn-sm ns-btn-primary-flat ns-my-5 ns-w-20" (click)="updateChatThreadsWithFirestoreMetaData()">
+        Update chat threads with firestore meta data
+      </button>
+      <!-- <button class="ns-btn ns-btn-sm ns-btn-primary-flat ns-my-5 ns-w-20" (click)="updateChatThreadJobId()">
+        Update chat threads jobId
+      </button> -->
+    </div>
+
+    <div *ngIf="actionMessage?.length" class="ns-p-5 ns-bg-secondary-500">
+      {{actionMessage}}
+    </div>
+    <div *ngIf="actionError?.length" class="ns-p-5 ns-bg-danger-500">
+      {{actionError}}
+    </div>
+  </div>
+</ion-content>

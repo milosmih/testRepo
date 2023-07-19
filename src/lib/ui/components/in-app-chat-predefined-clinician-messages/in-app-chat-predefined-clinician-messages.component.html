@@ -1,0 +1,9 @@
+<div class="ns-px-3 ns-py-5">
+  <div *ngFor="let message of messages" 
+    (click)="onClickMessage(message)"
+    [class.ns-bg-primary-900-i]="selectedMessage === message" 
+    [class.ns-color-shade-0-i]="selectedMessage === message"
+    class="ns-text-md ns-color-primary-900 ns-p-3 ns-mt-3 ns-b-1 ns-cursor-pointer ns-b-radius-100 ns-b-primary-900">
+    {{message}}
+  </div>
+</div>

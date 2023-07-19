@@ -1,0 +1,23 @@
+<ion-header>
+  <nursa-navbar [headerText]="'Messages'">
+  </nursa-navbar>
+</ion-header>
+<ion-content>
+  <div class="ns-max-w-md-32 ns-mx-auto ns-mt-5">
+    <ng-container *ngIf="!(chatThreadsLoading$ | async); else skeletonBlock">
+      <!-- CHAT THREADS LIST -->
+      <div class="custom-height ns-overflow-y-auto">
+        <app-in-app-chat-thread *ngFor="let thread of chatThreads$ | async" 
+          [thread]="thread"
+          (click)="onClickChatThread(thread.threadId)">
+        </app-in-app-chat-thread>
+      </div>
+    </ng-container>
+    <!-- SKELETON -->
+    <ng-template #skeletonBlock>
+      <div class="ns-max-w-md-32 ns-mx-auto">
+        <nursa-list-skeleton class="ns-w-100-pc"></nursa-list-skeleton>
+      </div>
+    </ng-template>
+  </div>
+</ion-content>
