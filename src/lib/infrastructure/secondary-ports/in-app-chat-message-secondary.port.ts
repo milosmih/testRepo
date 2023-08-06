@@ -9,10 +9,5 @@ export const IN_APP_CHAT_MESSAGE_SECONDARY_PORT: InjectionToken<InAppChatMessage
 export interface InAppChatMessageSecondaryPort {
 
   getChatThreadMessages(threadId: string): Observable<ChatThreadMessagesResponseDTO>;
-
-  sendTextMessage(threadId: string, message: string): Observable<void>;
-
-  sendMediaMessage(threadId: string, file: File): Observable<void>;
-
-  getUnreadMessagesCount(): Observable<{ unreadMessagesCount: number }>;
+  
 }

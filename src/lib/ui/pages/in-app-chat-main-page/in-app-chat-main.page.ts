@@ -9,7 +9,7 @@ import { InAppChatApplicationServiceModule } from '../../../application/services
 import { IN_APP_CHAT_THREAD_PRIMARY_PORT, InAppChatThreadPrimaryPort } from '../../../application/primary-ports/in-app-chat-thread-primary.port';
 import { InAppChatThreadComponent } from '../../components/in-app-chat-thread/in-app-chat-thread.component';
 import { ChatThread } from '../../../domain/models/chat-thread';
-import { IN_APP_CHAT_LIVE_UPDATE_PRIMARY_PORT, InAppChatLiveUpdatePrimaryPort } from '../../../application/primary-ports/in-app-chat-live-update-primary.port';
+import { IN_APP_CHAT_TWILIO_EVENT_HANDLER_PRIMARY_PORT, InAppChatTwilioEventHandlerPrimaryPort } from '../../../application/primary-ports/in-app-chat-twilio-event-handler-primary.port';
 import { IN_APP_CHAT_MODAL_CONTROL_PRIMARY_PORT, InAppChatModalControlPrimaryPort } from '../../../application/primary-ports/in-app-chat-modal-control-primary.port';
 import { IN_APP_CHAT_MESSAGE_PRIMARY_PORT, InAppChatMessagePrimaryPort } from '../../../application/primary-ports/in-app-chat-message-primary.port';
 
@@ -42,19 +42,19 @@ export class InAppChatMainPage implements OnInit, OnDestroy {
     @Inject(IN_APP_CHAT_THREAD_PRIMARY_PORT) private chatThreadPrimaryPort: InAppChatThreadPrimaryPort,
     @Inject(IN_APP_CHAT_MESSAGE_PRIMARY_PORT) private chatMessagePrimaryPort: InAppChatMessagePrimaryPort,
     @Inject(IN_APP_CHAT_MODAL_CONTROL_PRIMARY_PORT) private chatModalControlPrimaryPort: InAppChatModalControlPrimaryPort,
-    @Inject(IN_APP_CHAT_LIVE_UPDATE_PRIMARY_PORT) private chatLiveUpdatePrimaryPort: InAppChatLiveUpdatePrimaryPort) {
+    @Inject(IN_APP_CHAT_TWILIO_EVENT_HANDLER_PRIMARY_PORT) private chatLiveUpdatePrimaryPort: InAppChatTwilioEventHandlerPrimaryPort) {
   }
 
   ngOnInit(): void {
     this.chatThreadPrimaryPort.loadChatThreads();
   }
 
-  onClickChatThread(threadId: string) {
-    this.chatModalControlPrimaryPort.openExistingChat(threadId);
+  onClickChatThread(threadId: string, title: string) {
+    this.chatModalControlPrimaryPort.openExistingChat(threadId, title);
   }
 
   ngOnDestroy(): void {
-    this.chatLiveUpdatePrimaryPort.stopListeningChatThreadUpdates();
+    this.chatLiveUpdatePrimaryPort.stopProcessingChatThreadMessageAdded();
     this.chatMessagePrimaryPort.clearStorageData();
   }
 }

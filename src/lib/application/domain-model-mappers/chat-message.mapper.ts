@@ -10,6 +10,7 @@ export class ChatMessageMapper {
       dto.body,
       dto.media,
       dto.lastUpdateTime,
+      dto.index
     )
   }
 
@@ -19,7 +20,8 @@ export class ChatMessageMapper {
       twilioMessage.author === loggedUserId,
       twilioMessage.body,
       twilioMessage.attachedMedia,
-      twilioMessage.dateUpdated.toISOString()
+      twilioMessage.dateUpdated.toISOString(),
+      twilioMessage.index
     )
   }
 

@@ -6,25 +6,33 @@ import { InAppChatMigrationPrimaryPort } from '../primary-ports/in-app-chat-migr
 @Injectable()
 export class InAppChatMigrationApplicationService implements InAppChatMigrationPrimaryPort {
 
-  constructor(@Inject(IN_APP_CHAT_MIGRATION_SECONDARY_PORT) private inAppChatMigrationDtoPort: InAppChatMigrationSecondaryPort) { }
+  constructor(@Inject(IN_APP_CHAT_MIGRATION_SECONDARY_PORT) private migrationSecondaryPort: InAppChatMigrationSecondaryPort) { }
 
   getChatThreadsDataAnalysis(): Observable<string> {
-    return this.inAppChatMigrationDtoPort.getChatThreadsDataAnalysis();
+    return this.migrationSecondaryPort.getChatThreadsDataAnalysis();
   }
 
   exportChatThreads(): Observable<string> {
-    return this.inAppChatMigrationDtoPort.exportChatThreads();
+    return this.migrationSecondaryPort.exportChatThreads();
   }
 
   exportChatThreadsAttributes(): Observable<string> {
-    return this.inAppChatMigrationDtoPort.exportChatThreadsAttributes();
+    return this.migrationSecondaryPort.exportChatThreadsAttributes();
   }
 
   updateChatThreadsWithFirestoreMetaData(): Observable<string>{
-    return this.inAppChatMigrationDtoPort.updateChatThreadsWithFirestoreMetaData();
+    return this.migrationSecondaryPort.updateChatThreadsWithFirestoreMetaData();
   }
 
   updateChatThreadJobId(): Observable<string> {
-    return this.inAppChatMigrationDtoPort.updateChatThreadJobId();
+    return this.migrationSecondaryPort.updateChatThreadJobId();
+  }
+
+  removeChatThread(threadId: string): Observable<string> {
+    return this.migrationSecondaryPort.removeChatThread(threadId);
+  }
+
+  setInitialReadHorizonToParticipantChatThreads(): Observable<string> {
+    return this.migrationSecondaryPort.setInitialReadHorizonToParticipantChatThreads();
   }
 }

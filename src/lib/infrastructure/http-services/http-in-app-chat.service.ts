@@ -6,6 +6,7 @@ import { ClinicianChatThreadDTO, FacilityUserChatThreadDTO } from '../models/cha
 import { ChatThreadMessagesResponseDTO } from '../models/chat-thread-messages-response.dto';
 import { InAppChatThreadSecondaryPort } from '../secondary-ports/in-app-chat-thread-secondary.port';
 import { InAppChatMessageSecondaryPort } from '../secondary-ports/in-app-chat-message-secondary.port';
+import { NewChatThreadResponseDTO } from '../models/new-chat-thread-response.dto';
 
 @Injectable({ providedIn: 'root' })
 export class HttpInAppChatService implements InAppChatThreadSecondaryPort, InAppChatMessageSecondaryPort {
@@ -27,26 +28,12 @@ export class HttpInAppChatService implements InAppChatThreadSecondaryPort, InApp
     return this.http.get<ChatThreadMessagesResponseDTO>(`${this.env.APIurl}twilio/chat-thread-messages/${threadId}`);
   }
 
-  sendTextMessage(threadId: string, message: string): Observable<void> {
-    const data = { threadId, message }
-    return this.http.post<any>(`${this.env.APIurl}twilio/message`, data);
-  }
-
-  sendMediaMessage(threadId: string, file: File): Observable<void> {
-    const data = { threadId, file }
-    return this.http.post<any>(`${this.env.APIurl}twilio/message`, data);
-  }
-
   getChatThreadId(clinicianId: string, facilityId: string): Observable<{ threadId: string }> {
     return this.http.get<{ threadId: string }>(`${this.env.APIurl}twilio/chat-thread/clinician/${clinicianId}/facility/${facilityId}`);
   }
 
-  createChatThread(clinicianId: string, facilityId: string): Observable<{ threadId: string }> {
-    return this.http.post<{ threadId: string }>(`${this.env.APIurl}twilio/chat-thread`, { clinicianId, facilityId });
-  }
-
-  getUnreadMessagesCount(): Observable<{ unreadMessagesCount: number }> {
-    return this.http.get<{ unreadMessagesCount: number }>(`${this.env.APIurl}twilio/unread-messages-count`);
+  createChatThread(clinicianId: string, facilityId: string): Observable<NewChatThreadResponseDTO> {
+    return this.http.post<NewChatThreadResponseDTO>(`${this.env.APIurl}twilio/chat-thread`, { clinicianId, facilityId });
   }
 
 }

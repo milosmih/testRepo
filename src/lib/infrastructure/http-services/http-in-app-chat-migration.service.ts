@@ -32,4 +32,12 @@ export class HttpInAppChatMigrationService implements InAppChatMigrationSecondar
   updateChatThreadJobId(): Observable<string> {
     return this.http.post<string>(`${this.env.APIurl}twilio/update-threads-with-job`, null);
   }
+
+  removeChatThread(threadId: string): Observable<string> {
+    return this.http.delete<string>(`${this.env.APIurl}twilio/chat-thread/${threadId}`);
+  }
+
+  setInitialReadHorizonToParticipantChatThreads(): Observable<string> {
+    return this.http.post<string>(`${this.env.APIurl}twilio/participant/read-horizon`, null);
+  }
 }

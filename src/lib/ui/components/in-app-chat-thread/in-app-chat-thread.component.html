@@ -21,10 +21,14 @@
         </span>
       </div>
     </div>
+    <!-- THE LAST MESSAGE TIME -->
     <div class="ns-d-flex ns-flex-col ns-justify-content-between">
-      <span class="ns-text-sm ns-color-shade-500">{{thread?.lastMessage?.date_created | currentTimeOrDate}}</span>
-      <ion-icon class="ns-ml-auto ns-mb-3 ns-bg-secondary-900 ns-color-secondary-900-i ns-w-3 ns-h-3 ns-b-radius-100"
-        name="ellipse-outline"></ion-icon>
+      <span class="ns-text-sm ns-color-shade-500">{{thread?.lastMessage?.dateCreated | currentTimeOrDate}}</span>
+      <!-- NEW MESSAGE IDENTIFIER -->
+      <ng-container *ngIf="unreadMessagesCount$ | async as unreadMessagesCount">
+        <ion-icon *ngIf="unreadMessagesCount > 0" class="ns-ml-auto ns-mb-3 ns-bg-secondary-900 ns-color-secondary-900-i ns-w-3 ns-h-3 ns-b-radius-10"
+          name="ellipse-outline"></ion-icon>
+      </ng-container>
     </div>
   </div>
 </div>

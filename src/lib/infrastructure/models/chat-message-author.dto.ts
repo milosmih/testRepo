@@ -1,6 +1,4 @@
-export interface ChatMessageAuthorDTO {
-  readonly id: string;
-  readonly firstName: string;
-  readonly lastName: string;
-  readonly photoURL: string;
+import { ChatThreadParticipantDTO } from "./chat-thread-participant.dto";
+
+export interface ChatMessageAuthorDTO extends ChatThreadParticipantDTO {
 }

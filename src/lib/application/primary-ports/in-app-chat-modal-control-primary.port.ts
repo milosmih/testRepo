@@ -6,8 +6,8 @@ export const IN_APP_CHAT_MODAL_CONTROL_PRIMARY_PORT: InjectionToken<InAppChatMod
 
 export interface InAppChatModalControlPrimaryPort {
 
-  openExistingChat(threadId: string): void;
+  openExistingChat(threadId: string, title: string): void;
 
-  openNewOrExistingChat(clinicianId: string, facilityId: string): void;
+  openNewOrExistingChat(clinicianId: string, facilityId: string, title: string): void;
 
 }

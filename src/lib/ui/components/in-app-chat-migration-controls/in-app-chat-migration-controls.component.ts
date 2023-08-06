@@ -1,14 +1,17 @@
 import { Component, Inject } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AsyncPipe, JsonPipe, NgIf } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { IonicModule } from '@ionic/angular';
 import { finalize } from 'rxjs';
 import { DISMISS_LOADING_POPUP, DismissLoadingPopup, SHOW_LOADING_POPUP, ShowLoadingPopup } from '@common';
+import { InputFieldComponentModule } from '@nursa/ui-components';
 import { NursaNavbarComponentModule } from 'src/app/components/nursa-navbar/nursa-navbar.component.module';
 import { IN_APP_CHAT_MIGRATION_PRIMARY_PORT, InAppChatMigrationPrimaryPort } from '../../../application/primary-ports/in-app-chat-migration-primary.port';
 import { InAppChatMigrationApplicationServiceModule } from '../../../application/services/in-app-chat-migration-application.service.module';
 import { DismissLoadingPopupModule } from 'src/app/alert/dismiss-loading-popup.module';
 import { LoadingPopupModule } from 'src/app/alert/loading-popup.module';
+
 @Component({
   selector: 'in-app-chat-migration-controls',
   templateUrl: 'in-app-chat-migration-controls.component.html',
@@ -22,12 +25,19 @@ import { LoadingPopupModule } from 'src/app/alert/loading-popup.module';
     DismissLoadingPopupModule,
     LoadingPopupModule,
     NursaNavbarComponentModule,
-    InAppChatMigrationApplicationServiceModule
+    InAppChatMigrationApplicationServiceModule,
+    ReactiveFormsModule,
+    InputFieldComponentModule
   ],
 })
 export class InAppChatMigrationControlsComponent {
   public actionMessage: string = '';
   public actionError: string = '';
+
+  public form = new FormGroup({
+    threadId: new FormControl<string>('')
+  });
+  
   constructor(@Inject(IN_APP_CHAT_MIGRATION_PRIMARY_PORT) private chatMigrationPrimaryPort: InAppChatMigrationPrimaryPort,
     @Inject(SHOW_LOADING_POPUP) private showLoadingPopup: ShowLoadingPopup,
     @Inject(DISMISS_LOADING_POPUP) private readonly dismissLoadingPopup: DismissLoadingPopup) {
@@ -105,6 +115,38 @@ export class InAppChatMigrationControlsComponent {
       .subscribe({
         next: (response: string) => {
           this.actionMessage = JSON.stringify(response);
+        },
+        error: (error: HttpErrorResponse) => {
+          console.log(error);
+          this.actionError = JSON.stringify(error);
+        }
+      });
+  }
+
+  deleteChatThread(): void {
+    this.clearMessages();
+    this.showLoadingPopup.show('Processing data...');
+    this.chatMigrationPrimaryPort.removeChatThread(this.form.controls.threadId.value)
+      .pipe(finalize(() => this.dismissLoadingPopup.dismiss()))
+      .subscribe({
+        next: (message: string) => {
+          this.actionMessage = JSON.stringify(message);
+        },
+        error: (error: HttpErrorResponse) => {
+          console.log(error);
+          this.actionError = JSON.stringify(error);
+        }
+      });
+  }
+
+  setInitialReadHorizonToParticipantChatThreads(): void {
+    this.clearMessages();
+    this.showLoadingPopup.show('Processing data...');
+    this.chatMigrationPrimaryPort.setInitialReadHorizonToParticipantChatThreads()
+      .pipe(finalize(() => this.dismissLoadingPopup.dismiss()))
+      .subscribe({
+        next: (message: string) => {
+          this.actionMessage = JSON.stringify(message);
         },
         error: (error: HttpErrorResponse) => {
           console.log(error);

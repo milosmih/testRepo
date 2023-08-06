@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { Observable } from 'rxjs';
@@ -18,7 +18,7 @@ import { InAppChatApplicationServiceModule } from '../../../application/services
   ],
 })
 export class InAppChatSidebarMessageTextComponent {
-  public unreadMessagesCount$: Observable<number> = this.chatMessagePrimaryPort.getUnreadMessagesCount();
+  public unreadMessagesCount$: Observable<number> = this.chatMessagePrimaryPort.getAllChatThreadsUnreadMessagesCount();
 
   constructor(@Inject(IN_APP_CHAT_MESSAGE_PRIMARY_PORT) private chatMessagePrimaryPort: InAppChatMessagePrimaryPort){
   }

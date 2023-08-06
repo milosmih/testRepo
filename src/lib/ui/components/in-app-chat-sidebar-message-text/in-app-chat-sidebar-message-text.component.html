@@ -1,7 +1,7 @@
 <div>
   <span>Messages</span>
-  <ng-container *ngIf="unreadMessagesCount$ | async as messageCount">
-    <span> ({{messageCount}})</span>
-    <span class="ns-ml-3 ns-b-radius-100 ns-bg-danger-900 ns-color-shade-0 ns-py-1 ns-px-3 ns-text-sm">New</span>
+  <ng-container *ngIf="unreadMessagesCount$ | async as unreadMessagesCount">
+    <span> ({{unreadMessagesCount}})</span>
+    <span class="ns-ml-3 ns-b-radius-10 ns-bg-danger-900 ns-color-shade-0 ns-py-1 ns-px-3 ns-text-sm">New</span>
   </ng-container>
 </div>

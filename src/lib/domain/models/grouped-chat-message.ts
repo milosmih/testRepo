@@ -8,6 +8,7 @@ export class ChatMessage {
     public readonly isSent: boolean,
     public readonly body: string,
     public readonly media: any[],
-    public readonly lastUpdateTime: string
+    public readonly lastUpdateTime: string,
+    public readonly index: number
   ) { }
 }

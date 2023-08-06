@@ -7,11 +7,12 @@ import { IN_APP_CHAT_MODAL_CONTROL_PRIMARY_PORT, InAppChatModalControlPrimaryPor
 export class InAppChatStartConversationDirective {
   @Input() clinicianId: string;
   @Input() facilityId: string;
+  @Input() title: string;
 
   constructor(@Inject(IN_APP_CHAT_MODAL_CONTROL_PRIMARY_PORT) private chatModalControlPrimaryPort: InAppChatModalControlPrimaryPort) { }
 
   @HostListener('click')
   onClick(): void {
-    this.chatModalControlPrimaryPort.openNewOrExistingChat(this.clinicianId, this.facilityId);
+    this.chatModalControlPrimaryPort.openNewOrExistingChat(this.clinicianId, this.facilityId, this.title);
   }
 }

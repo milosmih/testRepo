@@ -16,4 +16,9 @@ export interface InAppChatMigrationPrimaryPort {
   updateChatThreadsWithFirestoreMetaData(): Observable<string>;
 
   updateChatThreadJobId(): Observable<string>;
+
+  removeChatThread(treadId: string): Observable<string>;
+
+  setInitialReadHorizonToParticipantChatThreads(): Observable<string>;
+
 }

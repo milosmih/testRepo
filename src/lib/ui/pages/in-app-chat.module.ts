@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { InAppChatMainPage } from './in-app-chat-main-page/in-app-chat-main.page';
-import { ShiftDateTimeFormatPipe } from '../pipes/shift-date-time-format.pipe';
 import { InAppChatMigrationControlsComponent } from '../components/in-app-chat-migration-controls/in-app-chat-migration-controls.component';
 
 @NgModule({
@@ -16,8 +15,6 @@ import { InAppChatMigrationControlsComponent } from '../components/in-app-chat-m
         component: InAppChatMigrationControlsComponent
       }
     ])
-  ],
-  providers:[ShiftDateTimeFormatPipe]
-
+  ]
 })
 export class InAppChatModule { }

@@ -3,7 +3,7 @@
     authors: authors$ | async
   } as observables">
   <ion-header>
-    <nursa-navbar [headerText]="'Facility name'" [showMenu]="false" [showBackArrow]="true">
+    <nursa-navbar [headerText]="title" [showMenu]="false" [showBackArrow]="true">
     </nursa-navbar>
   </ion-header>
   <ion-content>
@@ -39,6 +39,6 @@
         </div>  
       </div>
     </div>
-    <input #fileInputRef accept=".pdf, image/*" (change)="onFileSelected($event)" type="file" style="display: none">
+    <input #fileInputRef [accept]="allAttachmentTypes" (change)="onFileSelected($event)" type="file" style="display: none">
   </ion-content>
 </ng-container>  

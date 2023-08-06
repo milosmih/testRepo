@@ -8,7 +8,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { TextareaInputFieldComponentModule } from '@nursa/ui-components';
 import { InAppChatMessageComponent } from '../../components/in-app-chat-message/in-app-chat-message.component';
 import { MessageAuthorPipe } from '../../pipes/message-author.pipe';
-import { ShiftDateTimeFormatPipe } from '../../pipes/shift-date-time-format.pipe';
 import { NursaNavbarComponentModule } from 'src/app/components/nursa-navbar/nursa-navbar.component.module';
 import { IN_APP_CHAT_MESSAGE_PRIMARY_PORT, InAppChatMessagePrimaryPort } from '../../../application/primary-ports/in-app-chat-message-primary.port';
 import { GroupedChatMessage } from '../../../domain/models/grouped-chat-message';
@@ -31,7 +30,6 @@ import { IN_APP_CHAT_NEW_CHAT_THREAD_COMMUNICATION_PRIMARY_PORT, InAppChatNewCha
     KeyValuePipe,
     DatePipe,
     MessageAuthorPipe,
-    ShiftDateTimeFormatPipe,
     ReactiveFormsModule,
     NursaNavbarComponentModule,
   ]
@@ -41,14 +39,15 @@ export class InAppChatConversationWindowModalComponent implements OnInit {
   @ViewChild('fileInputRef') fileInputRef: ElementRef;
 
   @Input() threadId: string;
-
+  @Input() title: string;
   public groupedMessages$: Observable<GroupedChatMessage>;
   public authors$: Observable<ChatMessageAuthor[]>;
 
-  public form = new FormGroup({
+  public form: FormGroup = new FormGroup({
     message: new FormControl<string>('')
   });
 
+  public allAttachmentTypes: string = this.chatMessagePrimaryPort.getAllAttachmentTypes();
   private lastSelectedFile: File;
 
   constructor(private cdr: ChangeDetectorRef,
@@ -94,6 +93,7 @@ export class InAppChatConversationWindowModalComponent implements OnInit {
       .pipe(tap(() => {
         this.cdr.detectChanges();
         this.scrollToBottomMessageContainer();
+        this.chatMessagePrimaryPort.setAllMessagesRead(threadId);
       }))
 
     this.authors$ = this.chatMessagePrimaryPort.getChatThreadMessagesAuthors(threadId);
@@ -107,7 +107,7 @@ export class InAppChatConversationWindowModalComponent implements OnInit {
     }, 200);
   }
   // in case that we open new chat, we do not create chat until user send the first message
-  // after it we create chat wait for new chat Id and than send message to the thread
+  // after it we create chat, wait for new chat Id and than send message to the thread
   private subscribeToNewChatThreadCreation(): void {
     this.newChatThreadCommunicationPrimaryPort.getNewChatThreadId()
       .pipe(take(1))
@@ -115,9 +115,9 @@ export class InAppChatConversationWindowModalComponent implements OnInit {
         this.threadId = threadId;
         this.initializeSubscriptions(threadId);
         if (this.lastSelectedFile) {
-          this.sendNewTextMessage(this.threadId, this.form.controls.message.value);
-        } else {
           this.sendNewMediaMessage(this.threadId, this.lastSelectedFile);
+        } else {
+          this.sendNewTextMessage(this.threadId, this.form.controls.message.value);
         }
       })
   }

@@ -9,7 +9,7 @@
       <div class="custom-height ns-overflow-y-auto">
         <app-in-app-chat-thread *ngFor="let thread of chatThreads$ | async" 
           [thread]="thread"
-          (click)="onClickChatThread(thread.threadId)">
+          (click)="onClickChatThread(thread.threadId, thread.title)">
         </app-in-app-chat-thread>
       </div>
     </ng-container>

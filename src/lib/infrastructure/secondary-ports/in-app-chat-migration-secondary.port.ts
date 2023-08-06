@@ -16,4 +16,8 @@ export interface InAppChatMigrationSecondaryPort {
   updateChatThreadsWithFirestoreMetaData(): Observable<string>;
 
   updateChatThreadJobId(): Observable<string>;
+
+  removeChatThread(threadId: string): Observable<string>;
+
+  setInitialReadHorizonToParticipantChatThreads(): Observable<string>;
 }

@@ -1,11 +1,14 @@
+import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { InAppChatNewChatThreadCommunicationPrimaryPort } from '../primary-ports/in-app-chat-new-chat-thread-communication-primary.port';
 
+
+@Injectable({ providedIn: 'root' })
 export class InAppChatNewChatThreadCommunicationService implements InAppChatNewChatThreadCommunicationPrimaryPort {
   private createNewChatThreadAction$: Subject<void> = new Subject<void>();
   private newChatThreadId$: Subject<string> = new Subject<string>();
 
-
+  
   getCreateNewChatThreadAction(): Observable<void> {
     return this.createNewChatThreadAction$.asObservable();
   }

@@ -1,0 +1,1 @@
+export const DefaultMediaFileUrl: string = '../assets/imgs/file.svg';

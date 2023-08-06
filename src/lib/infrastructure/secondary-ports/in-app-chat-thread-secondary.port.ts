@@ -1,6 +1,7 @@
 import { Observable } from "rxjs";
 import { InjectionToken } from "@angular/core";
 import { ClinicianChatThreadDTO, FacilityUserChatThreadDTO } from "../models/chat-thread.dto";
+import { NewChatThreadResponseDTO } from "../models/new-chat-thread-response.dto";
 
 export const IN_APP_CHAT_THREAD_SECONDARY_PORT: InjectionToken<InAppChatThreadSecondaryPort> = new InjectionToken(
   'IN_APP_CHAT_THREAD_SECONDARY_PORT'
@@ -13,6 +14,6 @@ export interface InAppChatThreadSecondaryPort {
 
   getChatThreadId(clinicianId: string, facilityId: string): Observable<{ threadId: string }>;
 
-  createChatThread(clinicianId: string, facilityId: string): Observable<{ threadId: string }>;
+  createChatThread(clinicianId: string, facilityId: string): Observable<NewChatThreadResponseDTO>;
 
 }

@@ -1,0 +1,9 @@
+<div class="ns-d-flex ns-align-items-center">
+  <img *ngIf="isMediaMessageAnImage; else mediaFileTypeBlock" [src]="mediaMessageTemporaryUrl$ | async" alt="" />
+
+  <ng-template #mediaFileTypeBlock>
+    <img [src]="DefaultMediaFileUrl" alt="" />
+
+  </ng-template>
+  <span *ngIf="!isMediaMessageAnImage" class="ns-ml-4">{{message?.filename}}</span>
+</div>
